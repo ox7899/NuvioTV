@@ -4,6 +4,7 @@
     <string name="type_movie">فيلم</string>
     <string name="type_series">مسلسل</string>
     <string name="type_unknown">غير معروف</string>
+    
 
     <!-- HomeScreen -->
     <string name="home_no_addons">لا توجد إضافات مثبتة. أضف واحدة للبدء.</string>
