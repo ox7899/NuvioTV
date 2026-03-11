@@ -17,14 +17,14 @@
     <string name="error_state_possible_fix">حل محتمل: %1$s</string>
     <string name="error_state_fix_retry_soon">أعد المحاولة بعد قليل.</string>
     <string name="error_state_issue_no_metadata_any_addon">تعذر تحميل تفاصيل هذا المعرّف لأن أياً من الإضافات المثبتة لم تُرجع بيانات وصفية.</string>
-    <string name="error_state_fix_no_metadata_any_addon">جرب إضافة أخرى، أو قم بتعطيل "تفضيل إضافة البيانات الوصفية الخارجية" في إعدادات التخطيط، أو تأكد من أن هناك إضافة مثبتة تدعم هذا المعرّف.</string>
+    <string name="error_state_fix_no_metadata_any_addon">جرب إضافة أخرى، أو قم بتعطيل \"تفضيل إضافة البيانات الوصفية الخارجية\" في إعدادات التخطيط، أو تأكد من أن هناك إضافة مثبتة تدعم هذا المعرّف.</string>
     <string name="error_state_prefix_no_supported_metadata">لا توجد إضافة مثبتة تدعم البيانات الوصفية لـ </string>
     <string name="error_state_prefix_no_addon_for_id">لم تتمكن أي إضافة مثبتة من توفير بيانات وصفية للمعرّف=</string>
     <string name="error_state_fix_no_supported_metadata">قم بتثبيت أو تحديث إضافة تدعم نوع المحتوى هذا، ثم أعد المحاولة.</string>
     <string name="error_state_prefix_tried_meta_addons">إضافات البيانات الوصفية التي تمت تجربتها:</string>
     <string name="error_state_fix_tried_meta_addons">قم بتثبيت إضافة تدعم هذا المعرّف، أو أعد تكوين/تحديث الإضافة وأعد المحاولة.</string>
     <string name="error_state_issue_missing_metadata_for_id">لا تحتوي على بيانات وصفية لهذا المعرّف</string>
-    <string name="error_state_fix_missing_metadata_for_id">افتح هذا المعرّف من إضافة مختلفة، أو قم بتعطيل "تفضيل إضافة البيانات الوصفية الخارجية"، أو تحقق من أن الإضافة تدعم هذا المعرّف.</string>
+    <string name="error_state_fix_missing_metadata_for_id">افتح هذا المعرّف من إضافة مختلفة، أو قم بتعطيل \"تفضيل إضافة البيانات الوصفية الخارجية\"، أو تحقق من أن الإضافة تدعم هذا المعرّف.</string>
     <string name="error_state_issue_addon_unreachable">تعذر الوصول إليها</string>
     <string name="error_state_fix_addon_unreachable">تحقق من اتصالك بالإنترنت، وتأكد من أن رابط الإضافة لا يزال يعمل، ثم أعد المحاولة.</string>
     <string name="error_state_issue_addon_connection_failed">رفضت الاتصال</string>
@@ -36,7 +36,7 @@
     <string name="error_state_fix_addon_generic">أعد المحاولة، أو قم بتحديث أو إعادة تثبيت الإضافة، أو جرب إضافة مختلفة.</string>
     <string name="error_state_addon_issue_template">%1$s: %2$s.</string>
     <string name="error_meta_not_found">لم يتم العثور على البيانات الوصفية</string>
-    <string name="error_meta_no_supported_addon">لا توجد إضافة مثبتة تدعم البيانات الوصفية لـ "%1$s".</string>
+    <string name="error_meta_no_supported_addon">لا توجد إضافة مثبتة تدعم البيانات الوصفية لـ \"%1$s\".</string>
     <string name="error_meta_no_addon_for_id">لم تتمكن أي إضافة مثبتة من توفير بيانات وصفية للمعرّف=%1$s (النوع=%2$s).</string>
     <string name="error_meta_tried_none">إضافات البيانات الوصفية التي تمت تجربتها: %1$s. لم توفر أي منها بيانات وصفية للمعرّف=%2$s (النوع=%3$s).</string>
     <string name="error_meta_tried_generic">إضافات البيانات الوصفية التي تمت تجربتها: %1$s. تعذر تحميل البيانات الوصفية للمعرّف=%2$s (النوع=%3$s).</string>
@@ -47,6 +47,7 @@
     <string name="cw_upcoming">قريباً</string>
     <string name="cw_next_up">التالي</string>
     <string name="cw_resume">استئناف</string>
+    <string name="cw_percent_watched">%1$d%% مُشاهد</string>
     <string name="cw_hours_min_left">متبقي %1$d س %2$d د</string>
     <string name="cw_min_left">متبقي %1$d د</string>
     <string name="cw_almost_done">على وشك الانتهاء</string>
@@ -120,6 +121,15 @@
     <string name="detail_section_network">الشبكة</string>
     <string name="detail_section_production">الإنتاج</string>
     <string name="episodes_unavailable">غير متوفر</string>
+    <string name="series_status_ended">منتهي</string>
+    <string name="series_status_continuing">مستمر</string>
+    <string name="series_status_current">حالي</string>
+    <string name="series_status_cancelled">ملغى</string>
+    <string name="series_status_released">صدر</string>
+    <string name="series_status_planned">مخطط له</string>
+    <string name="series_status_rumored">شائعات</string>
+    <string name="series_status_in_production">قيد الإنتاج</string>
+    <string name="series_status_post_production">مرحلة ما بعد الإنتاج</string>
     <string name="detail_lists_fallback">القوائم</string>
     <string name="detail_lists_subtitle">حدد القوائم التي يجب أن تتضمن هذا العنوان.</string>
     <string name="action_save">حفظ</string>
@@ -553,7 +563,7 @@
     <string name="trakt_cw_window_title">نافذة متابعة المشاهدة</string>
     <string name="trakt_cw_window_subtitle">اختر مقدار نشاط Trakt الذي يجب أن يظهر في متابعة المشاهدة.</string>
     <string name="trakt_unaired_dialog_title">الحلقات القادمة غير المعروضة</string>
-    <string name="trakt_unaired_dialog_subtitle">اختر ما إذا كان يجب أن تتضمن "متابعة المشاهدة" الحلقات القادمة قبل إصدارها.</string>
+    <string name="trakt_unaired_dialog_subtitle">اختر ما إذا كان يجب أن تتضمن \"متابعة المشاهدة\" الحلقات القادمة قبل إصدارها.</string>
     <string name="trakt_show_unaired">عرض الحلقات غير المعروضة</string>
     <string name="trakt_hide_unaired">إخفاء الحلقات غير المعروضة</string>
     <string name="trakt_all_history">كل السجل</string>
@@ -578,9 +588,7 @@
     <string name="debug_signing_in">جارٍ تسجيل الدخول…</string>
     <string name="debug_sign_in">تسجيل الدخول</string>
     <string name="debug_error_dialog_title">خطأ في التشغيل</string>
-    <string name="debug_error_dialog_subtitle">حدث خطأ أثناء التشغيل.
-
-الخطأ: خطأ محاكى للاختبار - هذا ليس فشلاً حقيقياً. أرجع المصدر HTTP 503 (الخدمة غير متوفرة).</string>
+    <string name="debug_error_dialog_subtitle">حدث خطأ أثناء التشغيل.\n\nالخطأ: خطأ محاكى للاختبار - هذا ليس فشلاً حقيقياً. أرجع المصدر HTTP 503 (الخدمة غير متوفرة).</string>
     <string name="debug_dismiss">تجاهل</string>
 
     <!-- ProfileSettingsContent -->
@@ -775,7 +783,7 @@
 
 
     <!-- SearchScreen -->
-    <string name="search_keyboard_hint">اضغط على "تم" في لوحة المفاتيح للبحث</string>
+    <string name="search_keyboard_hint">اضغط على \"تم\" في لوحة المفاتيح للبحث</string>
     <string name="search_placeholder">البحث عن الأفلام والمسلسلات</string>
     <string name="search_start_title">ابدأ البحث</string>
     <string name="search_start_subtitle">أدخل حرفين على الأقل</string>
@@ -969,8 +977,7 @@
     <string name="plugin_providers_count">%1$d مزودين</string>
     <string name="plugin_enabled">مُفعّل</string>
     <string name="plugin_disabled">مُعطّل</string>
-    <string name="plugin_no_repos">لم تتم إضافة أي مستودعات بعد.
-أضف مستودعاً للبدء.</string>
+    <string name="plugin_no_repos">لم تتم إضافة أي مستودعات بعد.\nأضف مستودعاً للبدء.</string>
 
     <!-- ProfileSettingsContent -->
     <string name="profile_edit_title_id">تعديل الملف الشخصي %1$d</string>
@@ -993,4 +1000,6 @@
     <string name="update_open_settings">فتح الإعدادات</string>
     <string name="update_install">تثبيت</string>
     <string name="update_ignore">تجاهل</string>
+    <string name="watchlist_added">تمت الإضافة إلى قائمة المشاهدة</string>
+    <string name="watchlist_removed">تمت الإزالة من قائمة المشاهدة</string>
 </resources>
