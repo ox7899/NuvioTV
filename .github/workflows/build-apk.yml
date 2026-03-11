@@ -1,0 +1,60 @@
+name: Build NuvioTV APK (Modified by Basem)
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - apk-test                 # الفرع القديم اللي كنا نجرب عليه
+      - arabic-translation-final # النسخة النهائية مع الترجمة العربية
+      # - dev-new-features       # لو فتحت فرع جديد لاحقًا
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Cache Gradle dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build Debug APK
+      run: ./gradlew assembleDebug --stacktrace --info
+
+    - name: Show where the APK files are
+      if: always()
+      run: |
+        echo "═══════════════════════════════════════════════"
+        echo "البحث عن ملفات APK في المشروع..."
+        find . -type f -name "*.apk" 2>/dev/null || echo "ما لقينا أي .apk"
+        echo ""
+        echo "محتويات مجلد outputs إن وجد:"
+        ls -la **/build/outputs/apk 2>/dev/null || echo "المجلد غير موجود"
+        echo "═══════════════════════════════════════════════"
+    - name: Upload all found APK files
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: NuvioTV-APKs
+        path: |
+          **/build/outputs/apk/**/*.apk
+          !**/intermediates/**
+        if-no-files-found: warn
+        retention-days: 7
