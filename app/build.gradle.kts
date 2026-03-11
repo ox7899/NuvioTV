@@ -57,10 +57,10 @@ android {
 
     signingConfigs {
         create("release") {
-            keyAlias = "nuviotv"
-            keyPassword = "815787"
-            storeFile = file("../nuviotv.jks")
-            storePassword = "815787"
+            keyAlias = System.getenv("KEY_ALIAS") ?: "nuviotv"
+            keyPassword = System.getenv("KEY_PASSWORD") ?: "815787"
+            storeFile = file(System.getenv("KEYSTORE_PATH") ?: "../nuviotv.jks")
+            storePassword = System.getenv("STORE_PASSWORD") ?: "815787"
         }
     }
 
