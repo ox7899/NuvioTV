@@ -7,6 +7,7 @@ on:
     branches:
       - apk-test                 # الفرع القديم اللي كنا نجرب عليه
       - arabic-translation-final # النسخة النهائية مع الترجمة العربية
+      - arabic-translation-complete # الفرع الحالي مع الترجمة الكاملة
       # - dev-new-features       # لو فتحت فرع جديد لاحقًا
 
 jobs:
