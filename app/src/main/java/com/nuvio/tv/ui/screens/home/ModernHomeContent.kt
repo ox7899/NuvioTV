@@ -716,11 +716,10 @@ fun ModernHomeContent(
             with(localDensity) { heroBackdropHeight.roundToPx() }
         }
 
-        val heroMediaModifier = remember(heroBackdropHeight, layoutDirection) {
+        val heroMediaModifier = remember(heroBackdropHeight) {
             Modifier
-                .align(Alignment.TopEnd)
-                .offset(x = if (layoutDirection == LayoutDirection.Rtl) (-56).dp else 56.dp)
-                .fillMaxWidth(MODERN_HERO_MEDIA_WIDTH_FRACTION)
+                .align(Alignment.TopCenter)
+                .fillMaxWidth()
                 .height(heroBackdropHeight)
         }
 
