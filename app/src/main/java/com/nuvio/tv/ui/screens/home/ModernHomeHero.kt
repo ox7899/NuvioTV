@@ -79,6 +79,7 @@ internal fun ModernHeroMediaLayer(
         label = "heroBackdropTrailerCrossfadeProgress"
     )
     val localContext = LocalContext.current
+    val isRtl = LocalLayoutDirection.current == LayoutDirection.Rtl
 
     // Freeze the backdrop URL while enrichment is active — only update when enrichment ends
     // so Coil crossfade starts with the final URL, not an intermediate one.
@@ -100,6 +101,9 @@ internal fun ModernHeroMediaLayer(
             modifier = Modifier
                 .fillMaxSize()
                 .graphicsLayer {
+                    if (isRtl) {
+                        scaleX = -1f
+                    }
                     alpha = 1f - transitionProgressState.value
                     compositingStrategy = CompositingStrategy.Offscreen
                 },
@@ -120,9 +124,12 @@ internal fun ModernHeroMediaLayer(
                 modifier = Modifier
                     .fillMaxSize()
                     .graphicsLayer {
-                    alpha = transitionProgressState.value
-                    compositingStrategy = CompositingStrategy.Offscreen
-                }
+                        if (isRtl) {
+                            scaleX = -1f
+                        }
+                        alpha = transitionProgressState.value
+                        compositingStrategy = CompositingStrategy.Offscreen
+                    }
             )
         }
     }
