@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -95,38 +94,36 @@ internal fun ModernHeroMediaLayer(
     }
 
     Box(modifier = modifier) {
-        CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-            AsyncImage(
-                model = imageModel,
-                contentDescription = null,
+        AsyncImage(
+            model = imageModel,
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxSize()
+                .graphicsLayer {
+                    alpha = 1f - transitionProgressState.value
+                    compositingStrategy = CompositingStrategy.Offscreen
+                },
+            contentScale = ContentScale.Crop,
+            alignment = Alignment.TopEnd
+        )
+
+        if (shouldPlayHeroTrailer) {
+            TrailerPlayer(
+                trailerUrl = heroTrailerUrl,
+                trailerAudioUrl = heroTrailerAudioUrl,
+                isPlaying = true,
+                onEnded = onTrailerEnded,
+                onFirstFrameRendered = onFirstFrameRendered,
+                muted = muted,
+                cropToFill = true,
+                overscanZoom = MODERN_TRAILER_OVERSCAN_ZOOM,
                 modifier = Modifier
                     .fillMaxSize()
                     .graphicsLayer {
-                        alpha = 1f - transitionProgressState.value
-                        compositingStrategy = CompositingStrategy.Offscreen
-                    },
-                contentScale = ContentScale.Crop,
-                alignment = Alignment.TopEnd
+                    alpha = transitionProgressState.value
+                    compositingStrategy = CompositingStrategy.Offscreen
+                }
             )
-
-            if (shouldPlayHeroTrailer) {
-                TrailerPlayer(
-                    trailerUrl = heroTrailerUrl,
-                    trailerAudioUrl = heroTrailerAudioUrl,
-                    isPlaying = true,
-                    onEnded = onTrailerEnded,
-                    onFirstFrameRendered = onFirstFrameRendered,
-                    muted = muted,
-                    cropToFill = true,
-                    overscanZoom = MODERN_TRAILER_OVERSCAN_ZOOM,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .graphicsLayer {
-                            alpha = transitionProgressState.value
-                            compositingStrategy = CompositingStrategy.Offscreen
-                        }
-                )
-            }
         }
     }
 }
@@ -136,25 +133,42 @@ internal fun ModernHeroGradientLayer(
     bgColor: Color,
     modifier: Modifier
 ) {
+    val layoutDirection = LocalLayoutDirection.current
     Box(
         modifier = modifier
             .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen }
             .drawWithCache {
+                val isRtl = layoutDirection == LayoutDirection.Rtl
+
                 val leftBlendSolidWidth = size.width * 0.018f
                 val horizontalGradientStartX = leftBlendSolidWidth
                 val horizontalFadeEndX = horizontalGradientStartX + (size.width * 0.42f)
 
-                val horizontalGradient = Brush.horizontalGradient(
-                    colorStops = arrayOf(
-                        0.0f to bgColor,
-                        0.22f to bgColor.copy(alpha = 0.86f),
-                        0.46f to bgColor.copy(alpha = 0.56f),
-                        0.76f to bgColor.copy(alpha = 0.16f),
-                        1.0f to Color.Transparent
-                    ),
-                    startX = horizontalGradientStartX,
-                    endX = horizontalFadeEndX
-                )
+                val horizontalGradient = if (isRtl) {
+                    Brush.horizontalGradient(
+                        colorStops = arrayOf(
+                            0.0f to Color.Transparent,
+                            1.0f - 0.76f to bgColor.copy(alpha = 0.16f),
+                            1.0f - 0.46f to bgColor.copy(alpha = 0.56f),
+                            1.0f - 0.22f to bgColor.copy(alpha = 0.86f),
+                            1.0f to bgColor
+                        ),
+                        startX = size.width - horizontalFadeEndX,
+                        endX = size.width - horizontalGradientStartX
+                    )
+                } else {
+                    Brush.horizontalGradient(
+                        colorStops = arrayOf(
+                            0.0f to bgColor,
+                            0.22f to bgColor.copy(alpha = 0.86f),
+                            0.46f to bgColor.copy(alpha = 0.56f),
+                            0.76f to bgColor.copy(alpha = 0.16f),
+                            1.0f to Color.Transparent
+                        ),
+                        startX = horizontalGradientStartX,
+                        endX = horizontalFadeEndX
+                    )
+                }
 
                 val topContourGradient = Brush.linearGradient(
                     colorStops = arrayOf(
@@ -163,8 +177,8 @@ internal fun ModernHeroGradientLayer(
                         0.72f to bgColor.copy(alpha = 0.05f),
                         1.0f to Color.Transparent
                     ),
-                    start = Offset(0f, 0f),
-                    end = Offset(size.width * 0.24f, size.height * 0.40f)
+                    start = if (isRtl) Offset(size.width, 0f) else Offset(0f, 0f),
+                    end = if (isRtl) Offset(size.width * (1f - 0.24f), size.height * 0.40f) else Offset(size.width * 0.24f, size.height * 0.40f)
                 )
                 val bottomContourGradient = Brush.linearGradient(
                     colorStops = arrayOf(
@@ -173,8 +187,8 @@ internal fun ModernHeroGradientLayer(
                         0.74f to bgColor.copy(alpha = 0.05f),
                         1.0f to Color.Transparent
                     ),
-                    start = Offset(0f, size.height),
-                    end = Offset(size.width * 0.24f, size.height * 0.61f)
+                    start = if (isRtl) Offset(size.width, size.height) else Offset(0f, size.height),
+                    end = if (isRtl) Offset(size.width * (1f - 0.24f), size.height * 0.61f) else Offset(size.width * 0.24f, size.height * 0.61f)
                 )
                 val verticalGradient = Brush.verticalGradient(
                     0.89f to Color.Transparent,
@@ -184,7 +198,11 @@ internal fun ModernHeroGradientLayer(
                     1.0f to bgColor
                 )
                 onDrawBehind {
-                    drawRect(color = bgColor, size = Size(leftBlendSolidWidth, size.height))
+                    drawRect(
+                        color = bgColor,
+                        topLeft = if (isRtl) Offset(size.width - leftBlendSolidWidth, 0f) else Offset.Zero,
+                        size = Size(leftBlendSolidWidth, size.height)
+                    )
                     drawRect(brush = horizontalGradient, size = size)
                     drawRect(brush = topContourGradient, size = size)
                     drawRect(brush = bottomContourGradient, size = size)
@@ -207,13 +225,11 @@ internal fun HeroTitleBlock(
     if (enrichmentActive) stablePreview = null
 
     if (stablePreview == null) return
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
-        Box(
-            modifier = modifier,
-            contentAlignment = Alignment.BottomStart
-        ) {
-            HeroTitleContent(preview = stablePreview!!, portraitMode = portraitMode)
-        }
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.BottomStart
+    ) {
+        HeroTitleContent(preview = stablePreview!!, portraitMode = portraitMode)
     }
 }
 
